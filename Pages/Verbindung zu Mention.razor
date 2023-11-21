@@ -1,0 +1,40 @@
+﻿@page "/weather"
+
+
+
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="custom-modal">
+                <div class="modal-header ">
+                    <h5 class=" text-center">mJobs - Verbindung zu mention</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group text-center">
+                            <label class="mb-3 " for="databasePath">Einrichtung der Datenbankverbindung</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control mx-3" id="databasePath" placeholder="Pfad zum mention-Ordner angeben!">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button">...</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary">Testen</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Abbrechen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    // C# code for handling the form can be added here
+}
+
