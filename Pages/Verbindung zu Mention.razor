@@ -1,30 +1,44 @@
 ﻿@page "/weather"
-
-
+@inject NavigationManager NavigationManager
 
 
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="custom-modal">
-                <div class="modal-header ">
-                    <h5 class=" text-center">mJobs - Verbindung zu mention</h5>
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">mJobs - Verbindung zu mention</h5>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group text-center">
-                            <label class="mb-3 " for="databasePath">Einrichtung der Datenbankverbindung</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control mx-3" id="databasePath" placeholder="Pfad zum mention-Ordner angeben!">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button">...</button>
-                                </div>
+                    <div class="form-group text-center">
+                        <label class="mb-3" for="databasePath">Einrichtung der Datenbankverbindung</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="databasePath"
+                                   placeholder="Pfad zum mention-Ordner angeben!"
+                                   @bind="@urlPath">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button">...</button>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-primary">Testen</button>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" @onclick="CheckUrl">Testen</button>
+                    </div>
+                    @if (isUrlConfirmed.HasValue)
+                    {
+                        <div class="text-center mt-3">
+                            <div class="alert @(isUrlConfirmed.Value ? "alert-success" : "alert-danger")">
+                                @if (isUrlConfirmed.Value)
+                                {
+                                    <span>Der Pfad ist in der Datenbank vorhanden.</span>
+                                }
+                                else
+                                {
+                                    <span>Der Pfad ist nicht in der Datenbank vorhanden.</span>
+                                }
+                            </div>
                         </div>
-                    </form>
+                    }
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary">Abbrechen</button>
@@ -35,6 +49,25 @@
 </div>
 
 @code {
-    // C# code for handling the form can be added here
-}
+    private string urlPath;
+    private bool? isUrlConfirmed;
 
+    private async Task CheckUrl()
+    {
+        
+        var fakeDatabasePaths = new List<string>
+        {
+            "http://example.com/path1",
+            "http://example.com/path2"
+        };
+
+        isUrlConfirmed = fakeDatabasePaths.Contains(urlPath);
+
+        if (isUrlConfirmed.GetValueOrDefault())
+        {
+            await Task.Delay(3000); 
+            NavigationManager.NavigateTo("/counter");
+        }
+        
+    }
+}
